@@ -10,7 +10,7 @@ export default function RegisterPage() {
   async function registerUser(event) {
     event.preventDefault(); // avoid reloading from form
     try{
-      await axios.post("/register", {
+      await axios.post("/register", { // await: the next line starts after this line finished 
         name,
         email,
         password,

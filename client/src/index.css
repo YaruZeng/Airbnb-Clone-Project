@@ -12,6 +12,10 @@ textarea {
   @apply w-full border my-2 py-2 px-3 rounded-2xl;
 }
 
+textarea {
+  height: 120px;
+}
+
 button.primary {
   @apply bg-primary p-2 w-full text-white rounded-2xl;
 }

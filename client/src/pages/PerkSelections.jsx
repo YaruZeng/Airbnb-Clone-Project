@@ -12,7 +12,7 @@ export default function PerkSelections({selectedPerks, setPerks}) {
   return (
     <div className="grid gap-2 grid-cols-2 md:grid-cols-4 lg:grid-cols-6 mt-2">
       <label className="border p-4 flex rounded-2xl gap-2 items-center cursor-pointer">
-        <input type="checkbox" name="wifi" onChange={handleCheckClick}/>
+        <input type="checkbox" checked={selectedPerks.includes("wifi")} name="wifi" onChange={handleCheckClick}/>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -30,7 +30,7 @@ export default function PerkSelections({selectedPerks, setPerks}) {
         <span>Wifi</span>
       </label>
       <label className="border p-4 flex rounded-2xl gap-2 items-center cursor-pointer">
-        <input type="checkbox" name="parking" onChange={handleCheckClick}/>
+        <input type="checkbox" checked={selectedPerks.includes("parking")} name="parking" onChange={handleCheckClick}/>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -48,7 +48,7 @@ export default function PerkSelections({selectedPerks, setPerks}) {
         <span>Free parking spot</span>
       </label>
       <label className="border p-4 flex rounded-2xl gap-2 items-center cursor-pointer">
-        <input type="checkbox" name="pets" onChange={handleCheckClick}/>
+        <input type="checkbox" checked={selectedPerks.includes("pets")} name="pets" onChange={handleCheckClick}/>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -66,7 +66,7 @@ export default function PerkSelections({selectedPerks, setPerks}) {
         <span>Pets</span>
       </label>
       <label className="border p-4 flex rounded-2xl gap-2 items-center cursor-pointer">
-        <input type="checkbox" name="TV" onChange={handleCheckClick}/>
+        <input type="checkbox" checked={selectedPerks.includes("TV")} name="TV" onChange={handleCheckClick}/>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -84,7 +84,7 @@ export default function PerkSelections({selectedPerks, setPerks}) {
         <span>TV</span>
       </label>
       <label className="border p-4 flex rounded-2xl gap-2 items-center cursor-pointer">
-        <input type="checkbox" name="mountainView" onChange={handleCheckClick}/>
+        <input type="checkbox" checked={selectedPerks.includes("mountainView")} name="mountainView" onChange={handleCheckClick}/>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -102,7 +102,7 @@ export default function PerkSelections({selectedPerks, setPerks}) {
         <span>Mountain view</span>
       </label>
       <label className="border p-4 flex rounded-2xl gap-2 items-center cursor-pointer">
-        <input type="checkbox" name="radio" onChange={handleCheckClick}/>
+        <input type="checkbox" checked={selectedPerks.includes("radio")} name="radio" onChange={handleCheckClick}/>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"

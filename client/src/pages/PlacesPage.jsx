@@ -42,7 +42,7 @@ export default function PlacesPage() {
         {places.length > 0 &&
           places.map((place) => (
             <Link to={"http://localhost:5173/account/places/" + place._id} className="flex gap-4 py-4 px-5 m-4 mt-7 bg-gray-100 rounded-2xl cursor-pointer">
-              <div className="w-40 h-32 bg-gray-200">
+              <div className="flex w-40 h-32 bg-gray-200">
                 {place.photos.length > 0 && (
                   <img className="object-cover" src={"http://localhost:4000/uploads/" + place.photos[0]} alt="" />
                 )}

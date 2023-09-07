@@ -6,7 +6,10 @@ import RegisterPage from "./pages/RegisterPage";
 import Layout from "./Layout";
 import axios from "axios";
 import { UserContextProvider } from "./UserContext";
-import AccountPage from "./pages/AcountPage";
+import PlacesPage from "./pages/PlacesPage";
+import ProfilePage from "./pages/ProfilePage";
+import PlacesFormPage from "./pages/PlacesFormPage";
+import BookingPage from "./pages/BookingPage";
 
 axios.defaults.baseURL = "http://localhost:4000";
 axios.defaults.withCredentials = true; // cookie setting
@@ -21,8 +24,10 @@ function App() {
           <Route index element={<IndexPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
-          <Route path="/account/:subpage?" element={<AccountPage />}/>
-          {/* ?: make subpage optional so that "/account" can work */}
+          <Route path="/account" element={<ProfilePage />}/>
+          <Route path="/account/places" element={<PlacesPage />}/>
+          <Route path="/account/places/new" element={<PlacesFormPage />}/>
+          <Route path="/account/bookings" element={<BookingPage />}/>
         </Route>
       </Routes>
     </UserContextProvider>

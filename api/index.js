@@ -141,5 +141,13 @@ app.post("/places", (req, res) => {
   });
 });
 
+app.get("/places", async (req, res) => {
+  const { token } = req.cookies;
+  jwt.verify(token, jwtSecret, {}, async (err, userData) => {
+    const {id} = userData;
+    const placeData = await Place.find({owner: id});
+    res.json(placeData);
+  });
+});
 
 app.listen(4000);

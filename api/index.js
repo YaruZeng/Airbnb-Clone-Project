@@ -126,7 +126,8 @@ app.post("/places", (req, res) => {
   const {
     title, address, photos,
     description, perks, extraInfo, 
-    checkIn, checkOut, maxGuests,
+    checkIn, checkOut, maxGuests, 
+    price, startDate, endDate
   } = req.body;
 
   jwt.verify(token, jwtSecret, {}, async (err, userData) => {
@@ -136,12 +137,13 @@ app.post("/places", (req, res) => {
       title, address, photos,
       description, perks, extraInfo,
       checkIn, checkOut, maxGuests,
+      price, startDate, endDate
     });
     res.json(placeDoc);
   });
 });
 
-app.get("/places", async (req, res) => {
+app.get("/user-places", async (req, res) => {
   const { token } = req.cookies;
   jwt.verify(token, jwtSecret, {}, async (err, userData) => {
     const {id} = userData;
@@ -160,6 +162,7 @@ app.put("/places", async (req, res) => {
   const {
     id, title, address, photos, description,
     perks, extraInfo, checkIn, checkOut, maxGuests,
+    price, startDate, endDate
   } = req.body;
   
   jwt.verify(token, jwtSecret, {}, async (err, userData) => {
@@ -168,13 +171,19 @@ app.put("/places", async (req, res) => {
     if (userData.id === placeDoc.owner.toString()) {
       placeDoc.set({title, address, photos,
         description, perks, extraInfo,
-        checkIn, checkOut, maxGuests,});
-
+        checkIn, checkOut, maxGuests,
+        price, startDate, endDate
+      });
       await placeDoc.save();
       res.json("ok");
     }
   });
-
 });
+
+app.get("/home", async (req, res) => {
+  const placeData = await Place.find({});
+  res.json(placeData);
+});
+
 
 app.listen(4000);

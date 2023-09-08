@@ -6,8 +6,8 @@ export default function Header() {
   const {user} = useContext(UserContext);
 
   return (
-    <header className="flex justify-between items-center">
-      <Link to={"/"} className="logo flex items-center gap-1">
+    <header className="flex justify-between items-center px-14">
+      <Link to={"/"} className="logo flex items-center gap-1 text-primary">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"

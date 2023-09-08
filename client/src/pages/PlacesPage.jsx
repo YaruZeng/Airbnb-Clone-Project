@@ -7,7 +7,7 @@ export default function PlacesPage() {
   const [places, setPlaces] = useState([]);
 
   useEffect(() => {
-    axios.get("/places").then(({ data }) => {
+    axios.get("/user-places").then(({ data }) => {
       setPlaces(data);
     });
   }, []);
@@ -38,7 +38,7 @@ export default function PlacesPage() {
           Add new place
         </Link>
       </div>
-      <div className="mt-4">
+      <div className="mt-4 px-14">
         {places.length > 0 &&
           places.map((place) => (
             <Link to={"http://localhost:5173/account/places/" + place._id} className="flex gap-4 py-4 px-5 m-4 mt-7 bg-gray-100 rounded-2xl cursor-pointer">
@@ -47,7 +47,7 @@ export default function PlacesPage() {
                   <img className="object-cover" src={"http://localhost:4000/uploads/" + place.photos[0]} alt="" />
                 )}
               </div>
-              <div>
+              <div className="truncate">
                 <h2 className="text-xl -mt-1">{place.title}</h2>
                 <p className="flex items-center mt-1">
                   <svg

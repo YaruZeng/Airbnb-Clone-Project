@@ -15,10 +15,13 @@ export default function PlacesFormPage() {
   const [extraInfo, setExtraInfo] = useState("");
   const [checkIn, setCheckIn] = useState("");
   const [checkOut, setCheckOut] = useState("");
-  const [maxGuests, setMaxGuests] = useState(1);
+  const [maxGuests, setMaxGuests] = useState();
+  const [price, setPrice] = useState();
+  const [startDate, setStartDate] = useState();
+  const [endDate, setEndDate] = useState();
   const [redirect, setRedirect] = useState(false);
 
-  useEffect(() => {
+  useEffect(() => { // display data entered before by user 
     if (!id) {
       return;
     } else {
@@ -32,6 +35,9 @@ export default function PlacesFormPage() {
         setExtraInfo(data.extraInfo);
         setCheckIn(data.checkIn);
         setCheckOut(data.checkOut);
+        setPrice(data.price),
+        setStartDate(data.startDate.split("T")[0]);
+        setEndDate(data.endDate.split("T")[0]);
       });
     }
   }, [id]); // reactive values referenced inside of the above setup code
@@ -43,45 +49,61 @@ export default function PlacesFormPage() {
         {inputDescription(description)}
       </div>
     );
-  };
+  }
 
   function inputHeader(text) {
     return <h2 className="text-2xl mt-4">{text}</h2>;
-  };
+  }
 
   function inputDescription(text) {
     return <p className="text-gray-500 text-sm">{text}</p>;
-  };
+  }
 
   async function savePlace(event) {
     event.preventDefault();
+    if (startDate > endDate) {
+      return alert("End date must be later than Start date. ");
+    };
     const placeData = {
-      title, address, photos: addedPhotos, description,
-      perks, extraInfo, checkIn, checkOut, maxGuests,
-    }
+      title,
+      address,
+      photos: addedPhotos,
+      description,
+      perks,
+      extraInfo,
+      checkIn,
+      checkOut,
+      maxGuests,
+      price,
+      startDate,
+      endDate
+    };
+    console.log("start date: " + startDate);
     try {
-      if (id) { //update 
+      if (id) {
+        //update
         await axios.put("/places", {
-          id, ...placeData
+          id,
+          ...placeData,
         });
-      } else { //create a new place
+      } else {
+        //create a new place
         await axios.post("/places", placeData);
       }
       setRedirect(true);
     } catch (error) {
       alert("Submit failed, please try again later.");
     }
-  };
-
+  }
 
   if (redirect) {
-    return <Navigate to="/account/places" />;
-  };
+    return <Navigate to="/account/user-places" />;
+  }
 
   return (
     <div>
       <AccountNav />
-      <form onSubmit={savePlace}>
+      <form onSubmit={savePlace} className="px-14">
         {preInput(
           "Title",
           "title for your apartment. It's better to have a short and catchy title as in an advertisement."
@@ -120,7 +142,24 @@ export default function PlacesFormPage() {
           "Checkin & Checkout times",
           "add checkin and checkout times, remember to have some time for cleaning the room between guests."
         )}
-        <div className="grid gap-2 sm:grid-cols-3">
+        <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
+          <div>
+            <h3 className="mt-2 -mb-1">Start date</h3>
+            <input
+              type="date"
+              value={startDate}
+              onChange={(event) => setStartDate(event.target.value)}
+            />
+          </div>
+          <div>
+            <h3 className="mt-2 -mb-1">End date</h3>
+            <input
+              type="date"
+              value={endDate}
+              onChange={(event) => setEndDate(event.target.value)}
+            />
+          </div>
+
           <div>
             <h3 className="mt-2 -mb-1">Check in time</h3>
             <input
@@ -137,6 +176,15 @@ export default function PlacesFormPage() {
               placeholder="11"
               value={checkOut}
               onChange={(event) => setCheckOut(event.target.value)}
+            />
+          </div>
+          <div>
+            <h3 className="mt-2 -mb-1">Price per night (pounds)</h3>
+            <input
+              type="number"
+              placeholder="100"
+              value={price}
+              onChange={(event) => setPrice(event.target.value)}
             />
           </div>
           <div>

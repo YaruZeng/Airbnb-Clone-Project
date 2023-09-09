@@ -55,7 +55,7 @@ export default function List(props) {
                 {place.address.substring(0, 50)}
               </p>
 
-              <div className="mt-7">
+              <div className={subpage == "bookings" ? "mt-7" : "mt-12"}>
                 <DateDuration
                   checkInDate={props.checkInDate}
                   checkOutDate={props.checkOutDate}
@@ -107,7 +107,7 @@ export default function List(props) {
                           viewBox="0 0 24 24"
                           strokeWidth={1.5}
                           stroke="currentColor"
-                          className="w-6 h-6"
+                          className="w-5 h-5"
                         >
                           <path
                             strokeLinecap="round"

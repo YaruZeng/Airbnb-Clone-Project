@@ -1,8 +1,8 @@
 import { useContext, useState } from "react";
-import { UserContext } from "../UserContext";
+import { UserContext } from "../components/UserContext";
 import { Navigate} from "react-router-dom";
 import axios from "axios";
-import AccountNav from "../AccountNav";
+import AccountNav from "../components/AccountNav";
 
 export default function ProfilePage({}) {
   const [redirect, setRedirect] = useState(); // control the redirect after logout

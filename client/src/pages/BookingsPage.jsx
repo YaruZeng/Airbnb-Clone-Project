@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import AccountNav from "../AccountNav";
+import AccountNav from "../components/AccountNav";
 import axios from "axios";
-import List from "../List";
+import List from "../components/List";
 
 export default function BookingsPage() {
   const [bookings, setBookings] = useState([]);

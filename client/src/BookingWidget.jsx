@@ -1,34 +1,45 @@
 import { useState } from "react";
+import { differenceInCalendarDays } from "date-fns";
+import axios from "axios";
+import { Navigate } from "react-router-dom";
 
 export default function BookingWidget({ placeDetail }) {
-  const [numOfGuests, setNumOfGuests] = useState();
-  const [checkInDate, setCheckInDate] = useState();
-  const [checkOutDate, setCheckOutDate] = useState();
-  const [nights, setNights] = useState(0);
-  const [totalPrice, setTotalPrice] = useState(0);
+  const [numOfGuests, setNumOfGuests] = useState(1);
+  const [checkInDate, setCheckInDate] = useState("");
+  const [checkOutDate, setCheckOutDate] = useState("");
+  const [guestName, setGuestName] = useState("");
+  const [guestPhone, setGuestPhone] = useState("");
+  const [redirect, setRedirect] = useState();
 
-  function calculateNights(event) {
-    const startDate = new Date(checkInDate);
-    const endDate = new Date(event.target.value);
-    const one_day = 1000 * 60 * 60 * 24;
+  let nights = 0;
 
-    let result = Math.ceil((endDate.getTime() - startDate.getTime()) / one_day);
+  if (checkInDate && checkOutDate) { // calculate num of nights
+    nights = differenceInCalendarDays(
+      new Date(checkOutDate),
+      new Date(checkInDate)
+    );
+  }
 
-    if (result <= 0) {
-      setNights(0);
-      return alert("Check out date should be later than check in date. ");
-    } else {
-      setCheckOutDate(event.target.value);
-      setNights(result);
-      setTotalPrice((placeDetail.price * result));
-    }
+  async function handleReserve(event) {
+    event.preventDefault();
+    const response = await axios.post("/bookings", {place: placeDetail._id, checkInDate, 
+      checkOutDate, numOfGuests, guestName, guestPhone, totalPrice: placeDetail.price * nights});
+
+    // const userId = response.data.user;
+    // console.log(userId);
+    setRedirect("/account/bookings");
+  }
+
+  if (redirect) {
+    return <Navigate to={redirect} />
   }
 
   return (
-    <div>
+    <form onSubmit={(event) => handleReserve(event)}>
       <div className="bg-white p-5 rounded-xl border shadow-md">
         <div className="text-left pb-1">
-          <span className="font-bold text-2xl">£{placeDetail.price}</span> per night
+          <span className="font-bold text-2xl">£{placeDetail.price}</span> per
+          night
         </div>
         <div className="my-2 border rounded-xl">
           <div className="flex border-b">
@@ -47,7 +58,7 @@ export default function BookingWidget({ placeDetail }) {
                 type="date"
                 className="cursor-pointer"
                 value={checkOutDate}
-                onChange={(event) => calculateNights(event)}
+                onChange={(event) => setCheckOutDate(event.target.value)}
               />
             </div>
           </div>
@@ -57,29 +68,51 @@ export default function BookingWidget({ placeDetail }) {
               type="number"
               value={numOfGuests}
               onChange={(event) => setNumOfGuests(event.target.value)}
+              placeholder="1"
             />
           </div>
-          <div className="border-b">
-            <div className="flex px-3 py-4 justify-between items-center text-gray-600">
-              <p className="underline">
-                £{placeDetail.price} x {nights} nights{" "}
-              </p>
-              <p className="">£{totalPrice}</p>
-            </div>
-            <div className="flex px-3 pb-4 justify-between items-center text-gray-600">
-              <p className="underline">Service fee</p>
-              <p className="">£100</p>
-            </div>
+          <div className="px-3 py-4">
+            <label>Your full name</label>
+            <input
+              type="text"
+              value={guestName}
+              onChange={(event) => setGuestName(event.target.value)}
+              placeholder="Jane Doe"
+            />
+            <label>Phone number</label>
+            <input
+              type="text"
+              value={guestPhone}
+              onChange={(event) => setGuestPhone(event.target.value)}
+              placeholder="+44012345678910"
+            />
           </div>
-          <div>
-            <div className="flex px-3 py-4 justify-between items-center">
-              <p className="underline">Total</p>
-              <p className="">£{totalPrice + 100}</p>
-            </div>
+          {nights > 0 && (
+            <div>
+              <div className="border-b border-t">
+                <div className="flex px-3 py-4 justify-between items-center text-gray-600">
+                  <p className="underline">
+                    £{placeDetail.price} x {nights} nights{" "}
+                  </p>
+                  <p className="">£{placeDetail.price * nights}</p>
+                </div>
+                <div className="flex px-3 pb-4 justify-between items-center text-gray-600">
+                  <p className="underline">Service fee</p>
+                  <p className="">£{nights && "100"}</p>
+                </div>
+              </div>
+              <div>
+                <div className="flex px-3 py-4 justify-between items-center">
+                  <p className="underline">Total</p>
+                  <p className="">
+                    £{nights && placeDetail.price * nights + 100}
+                  </p>
+                </div>
+              </div>
+            </div>)}
           </div>
-        </div>
-        <button className="primary">Reserve</button>
+        <button type="submit" className="primary">Reserve</button>
       </div>
-    </div>
+    </form>
   );
 }

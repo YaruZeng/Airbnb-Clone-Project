@@ -15,8 +15,8 @@ export default function IndexPage() {
     <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 px-14">
       {places.length > 0 &&
         places.map((place) => (
-          <Link key={place.id} to={"/place/" + place._id} >
-            <div key={place.id} className="rounded-2xl aspect-square mt-3">
+          <Link key={place._id} to={"/place/" + place._id} >
+            <div className="rounded-2xl aspect-square mt-3">
               {place.photos.length > 0 && (
                 <img
                   className="rounded-2xl object-cover aspect-square"

@@ -6,6 +6,7 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const User = require("./models/users");
 const Place = require("./models/places");
+const Booking = require("./models/bookings");
 const cookieParser = require("cookie-parser");
 const imageDownloader = require("image-downloader");
 const multer = require("multer");
@@ -185,5 +186,20 @@ app.get("/home", async (req, res) => {
   res.json(placeData);
 });
 
+app.post("/bookings", (req, res) => {
+  const { token } = req.cookies;
+  const {place, checkInDate, checkOutDate, 
+    numOfGuests, guestName, guestPhone, totalPrice} = req.body;
+
+    jwt.verify(token, jwtSecret, {}, async (err, userData) => {
+      if (err) throw err;
+      const bookingDoc = await Booking.create({
+        user: userData.id,
+        place, checkInDate, checkOutDate, 
+        numOfGuests, guestName, guestPhone, totalPrice
+      });
+      res.json(bookingDoc);
+    });
+});
 
 app.listen(4000);

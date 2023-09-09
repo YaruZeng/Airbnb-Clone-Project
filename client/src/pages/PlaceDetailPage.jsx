@@ -7,6 +7,7 @@ export default function PlaceDetailPage() {
   const { id } = useParams();
   const [placeDetail, setPlaceDetail] = useState();
   const [showAllPhotos, setShowAllPhotos] = useState(false);
+  const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 
   useEffect(() => {
     if (!id) {
@@ -25,7 +26,7 @@ export default function PlaceDetailPage() {
       <div className="bg-black absolute inset-0 min-h-screen">
         <div className="bg-black p-9 grid gap-5">
           <div className="flex-inline">
-            <h2 className="text-white text-2xl mr-40">
+            <h2 className="text-white text-2xl mr-6">
               Photos of {placeDetail.title}
             </h2>
             <button
@@ -141,11 +142,13 @@ export default function PlaceDetailPage() {
           <div className="mb-5">
             <h2 className="text-2xl font-semibold mb-2">Description</h2>
             <p className="leading-7">{placeDetail.description}</p>
-            <p className="my-3 mb-6 leading-7">
-              Check in: {placeDetail.checkIn} <br />
-              Check out: {placeDetail.checkOut} <br />
-              Max number of guests: {placeDetail.maxGuests}
-            </p>
+            <div className="my-4 mb-6 leading-7">
+              <p>Available dates: {new Date(placeDetail.startDate).getDate()} {months[new Date(placeDetail.startDate).getMonth()]}
+              {" - "}{new Date(placeDetail.endDate).getDate()} {months[new Date(placeDetail.endDate).getMonth()]}</p>
+              <p>Max number of guests: {placeDetail.maxGuests} </p>
+              <p>Check in: {placeDetail.checkIn} </p>
+              <p>Check out: {placeDetail.checkOut} </p>
+            </div>
             <hr/>
           </div>
           <div className="mb-5 mr-3 mt-2">

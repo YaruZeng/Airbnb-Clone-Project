@@ -9,7 +9,7 @@ export default function ProfilePage({}) {
   const { isReady, user, setUser, setReady } = useContext(UserContext); // check the user data loading status
 
   if (!isReady) {
-    return "Loading...";
+    return <div className="px-14"><p>Loading...</p></div>;
   }
 
   if (isReady && !user && !redirect) {

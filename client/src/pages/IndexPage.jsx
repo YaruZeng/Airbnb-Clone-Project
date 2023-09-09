@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 export default function IndexPage() {
   const [places, setPlaces] = useState([]);
@@ -14,8 +15,8 @@ export default function IndexPage() {
     <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 px-14">
       {places.length > 0 &&
         places.map((place) => (
-          <div>
-            <div className="bg-gray-300 rounded-2xl aspect-square mt-3">
+          <Link key={place.id} to={"/place/" + place._id} >
+            <div key={place.id} className="rounded-2xl aspect-square mt-3">
               {place.photos.length > 0 && (
                 <img
                   className="rounded-2xl object-cover aspect-square"
@@ -31,7 +32,7 @@ export default function IndexPage() {
               {" - "}{new Date(place.endDate).getDate()} {months[new Date(place.endDate).getMonth()]}</p>
               <p className="underline mt-1"><span className="font-bold">£{place.price}</span> total</p>
             </div>
-          </div>
+          </Link>
         ))}
     </div>
   );

@@ -25,7 +25,7 @@ export default function PlacesFormPage() {
     if (!id) {
       return;
     } else {
-      axios.get("/places/" + id).then((response) => {
+      axios.get("/place/" + id).then((response) => {
         const { data } = response;
         setTitle(data.title);
         setAddress(data.address);
@@ -146,6 +146,7 @@ export default function PlacesFormPage() {
           <div>
             <h3 className="mt-2 -mb-1">Start date</h3>
             <input
+              className="w-full border my-2 py-2 px-3 rounded-2xl"
               type="date"
               value={startDate}
               onChange={(event) => setStartDate(event.target.value)}
@@ -154,6 +155,7 @@ export default function PlacesFormPage() {
           <div>
             <h3 className="mt-2 -mb-1">End date</h3>
             <input
+              className="w-full border my-2 py-2 px-3 rounded-2xl"
               type="date"
               value={endDate}
               onChange={(event) => setEndDate(event.target.value)}

@@ -41,14 +41,14 @@ export default function PlacesPage() {
       <div className="mt-4 px-14">
         {places.length > 0 &&
           places.map((place) => (
-            <Link to={"http://localhost:5173/account/places/" + place._id} className="flex gap-4 py-4 px-5 m-4 mt-7 bg-gray-100 rounded-2xl cursor-pointer">
-              <div className="flex w-40 h-32 bg-gray-200">
+            <Link to={"http://localhost:5173/account/places/" + place._id} key={place.id} className="flex gap-4 py-4 px-5 m-4 mt-7 bg-gray-100 rounded-2xl cursor-pointer">
+              <div className="flex w-32 h-32 bg-gray-200">
                 {place.photos.length > 0 && (
-                  <img className="object-cover" src={"http://localhost:4000/uploads/" + place.photos[0]} alt="" />
+                  <img className="flex object-cover with-auto" src={"http://localhost:4000/uploads/" + place.photos[0]} alt="" />
                 )}
               </div>
               <div className="truncate">
-                <h2 className="text-xl -mt-1">{place.title}</h2>
+                <h2 className="text-xl -mt-1">{place.title.substring(0,50)}</h2>
                 <p className="flex items-center mt-1">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -69,7 +69,7 @@ export default function PlacesPage() {
                       d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"
                     />
                   </svg>
-                  {place.address}
+                  {place.address.substring(0,50)}
                 </p>
                 <div className="gap-2 mt-7">
                   <p className="flex gap-1 items-center">

@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import PerkSelections from "./PerkSelections";
 import PhotoUploader from "../components/PhotoUploader";
 import axios from "axios";
-import AccountNav from "../components/AccountNav";
 import { Navigate, useParams } from "react-router-dom";
 
 export default function PlacesFormPage() {
@@ -102,7 +101,6 @@ export default function PlacesFormPage() {
 
   return (
     <div>
-      <AccountNav />
       <form onSubmit={savePlace} className="px-14">
         {preInput(
           "Title",

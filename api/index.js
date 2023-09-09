@@ -167,6 +167,11 @@ app.get("/place/:id", async (req, res) => {
   res.json(await Place.findById(id));
 });
 
+app.get("/place/:placeId/:bookingId", async (req, res) => {
+  const {bookingId} = req.params;
+  res.json(await Booking.findById(bookingId));
+});
+
 app.put("/places", async (req, res) => { 
   const { token } = req.cookies;
   const {

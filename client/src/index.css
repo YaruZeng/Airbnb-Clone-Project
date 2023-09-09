@@ -19,3 +19,7 @@ textarea {
 button.primary {
   @apply bg-primary p-2 w-full text-white rounded-2xl;
 }
+
+button.normal {
+  @apply bg-normal p-2 w-full text-white rounded-2xl;
+}

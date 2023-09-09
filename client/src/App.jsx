@@ -11,7 +11,6 @@ import ProfilePage from "./pages/ProfilePage";
 import PlacesFormPage from "./pages/PlacesFormPage";
 import BookingsPage from "./pages/BookingsPage";
 import PlaceDetailPage from "./pages/PlaceDetailPage";
-import BookingDetailPage from "./pages/BookingDetailPage";
 
 axios.defaults.baseURL = "http://localhost:4000";
 axios.defaults.withCredentials = true; // cookie setting
@@ -30,9 +29,9 @@ function App() {
           <Route path="/account/user-places" element={<PlacesPage />}/>
           <Route path="/account/places/new" element={<PlacesFormPage />}/>
           <Route path="/account/places/:id" element={<PlacesFormPage />}/>
-          <Route path="/place/:id" element={<PlaceDetailPage />}/>
+          <Route path="/place/:placeId" element={<PlaceDetailPage />}/>
+          <Route path="/place/:placeId/:bookingId" element={<PlaceDetailPage />}/>
           <Route path="/account/bookings" element={<BookingsPage />}/>
-          <Route path="/account/bookings/:id" element={<BookingDetailPage />}/>
         </Route>
       </Routes>
     </UserContextProvider>

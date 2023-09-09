@@ -4,7 +4,7 @@ import axios from "axios";
 import { Navigate } from "react-router-dom";
 import { UserContext } from "./UserContext";
 
-export default function BookingWidget({ placeDetail }) {
+export default function BookingWidget({ placeDetail, buttonDisabled }) {
   const [numOfGuests, setNumOfGuests] = useState(1);
   const [checkInDate, setCheckInDate] = useState("");
   const [checkOutDate, setCheckOutDate] = useState("");
@@ -119,7 +119,7 @@ export default function BookingWidget({ placeDetail }) {
               </div>
             </div>)}
           </div>
-        <button type="submit" className="primary">Reserve</button>
+        <button type="submit" className={buttonDisabled ? "normal" : "primary"} disabled={buttonDisabled}>{buttonDisabled ? "You've already booked" : "Reserve"}</button>
       </div>
     </form>
   );
